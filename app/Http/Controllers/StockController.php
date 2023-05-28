@@ -112,6 +112,8 @@ class StockController extends Controller
             if (count($data_arr) > 0) {
                 Stock::insert($data_arr);
             }
+
+
             $data = [];
             $expdata = [];
             if ($request['type'] == 1) {
@@ -119,7 +121,7 @@ class StockController extends Controller
                 // $data[] = ["type"=>1, "amount" => -$ledger,"details" => $detail,"vendor_id" => $request->vendor_id,"created_at" => $created_at,"bank" => $bank, "payment_type" => $request->payment_type];
                 $expdata = ["debit" => $ledger, "detail" => $detail, "detail_hidden" => $detail_hidden, "created_at" => $created_at, "bank" => $bank, "payment_type" => $request->payment_type, 'type' => 1];
             } else if ($request['type'] == 2) {
-                $data[] = ["type" => 1, "amount" => $ledger, "details" => $detail, "vendor_id" => $request->vendor_id, "created_at" => $created_at, "bank" => $bank, "payment_type" => $request->payment_type, "full" => 2];
+                /* $data[] = ["type" => 1, "amount" => $ledger, "details" => $detail, "vendor_id" => $request->vendor_id, "created_at" => $created_at, "bank" => $bank, "payment_type" => $request->payment_type, "full" => 2]; */
 
                 $data[] = ["type" => 1, "amount" => -$request->paid_amount, "details" => $detail, "vendor_id" => $request->vendor_id, "created_at" => $created_at, "bank" => $bank, "payment_type" => $request->payment_type, "full" => 2];
                 //add expense
