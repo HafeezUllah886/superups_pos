@@ -423,7 +423,7 @@ $due_charges=0;
     "bFilter": false,
     "bInfo": false,
     "pageLength": 15,
-   /*  "order": [ 0, 'desc' ], */
+    "order": [ 0, 'desc' ],
 });
 </script>
 @endsection
