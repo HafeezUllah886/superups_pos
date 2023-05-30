@@ -414,7 +414,7 @@ $due_charges=0;
 </style>
 <script>
     $('#datatable1').DataTable({
-    "order": [[ 1, "desc" ]],
+    "order": [[ 0, "desc" ]],
     'columnDefs': [
         { 'sortable': false, 'searchable': false, 'visible': false, 'type': 'num', 'targets': [0] }
     ],
@@ -423,7 +423,7 @@ $due_charges=0;
     "bFilter": false,
     "bInfo": false,
     "pageLength": 15,
-    "order": [ 0, 'desc' ],
+
 });
 </script>
 @endsection
