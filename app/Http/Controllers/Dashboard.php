@@ -52,7 +52,6 @@ class Dashboard extends Controller
             ->leftjoin('banks', 'ledgers.bank', '=', 'banks.id')
             ->leftjoin('vendors', 'ledgers.vendor_id', '=', 'vendors.id')
             ->orderby('ledgers.created_at', 'desc')->limit(10)->get();
-
         $total_ledger = 0;
         $lc = new LedgerController();
         foreach ($vendors as $v) {
@@ -86,9 +85,9 @@ class Dashboard extends Controller
         $bankamount = Bankbalance::sum('amount');
         $bankledgeramount = Ledger::where('payment_type', '!=', 0)->sum('amount');
         $bankexpense = Expense::where('payment_type', '!=', 0)->where('status', 1)->sum('debit');
-        //$banktotal = ($bankamount + $bankledgeramount) -$bankexpense; 
+        //$banktotal = ($bankamount + $bankledgeramount) -$bankexpense;
 
-        // total cash 
+        // total cash
         $totalcashcredit = Expense::where('payment_type', 0)->whereRaw('NOT(detail_hidden <=> "incentive")')->sum('credit');
         $totalcashdebit = Expense::where('payment_type', 0)->whereRaw('NOT(detail_hidden <=> "incentive")')->sum('debit');
 
@@ -122,7 +121,7 @@ class Dashboard extends Controller
 
             $bankledgeramounttoday = Expense::where('bank', $b->id)->whereRaw('DATE(created_at)="' . date('Y-m-d') . '"')->sum('credit');
             $bankexpensetoday = Expense::where('bank', $b->id)->whereRaw('DATE(created_at)="' . date('Y-m-d') . '"')->sum('debit');
-            // $banktotaltoday = ($bankamount + $bankledgeramounttoday) -$bankexpensetoday; 
+            // $banktotaltoday = ($bankamount + $bankledgeramounttoday) -$bankexpensetoday;
             $banktotaltoday += $bankledgeramounttoday - $bankexpensetoday;
         }
         // dd($expenses[0]['created_date']);

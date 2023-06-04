@@ -191,7 +191,7 @@
         </div>
          <div class="col-8 d-flex justify-content-center align-items-center" style="flex-direction: column">
             <div>
-                <h1 style="font-size:40px" class="m-query1">ABC Center</h1>
+                <h1 style="font-size:40px" class="m-query1">Super UPS Center</h1>
             </div>
             <div>
             <h3 style="font-size:20px;" class="m-query2">Shop No 12, insaf Solar Market, Angle Road, opp Civic Center, Quetta.&nbsp; <br>Phone:&nbsp; 0300-3883054,&nbsp;0309-8105556,&nbsp;081-2827774</h3>
@@ -207,15 +207,15 @@
                 <img width="120px" height="80px" src="{{ asset("assets/images/name.png") }}"/>
                 </div>
                 <div class="col-lg-7 col-7 text-center">
-                    <h1 class="m-query1">ABC Center</h1>
-                    <h3 class="m-query2">ABC<br>Phone:&nbsp; 0300-1234556,&nbsp;0309-12345,&nbsp;081-123445</h3>
+                    <h1 class="m-query1">Super UPS Center</h1>
+                    <h3 class="m-query2">Shop No 12, insaf Solar Market, Angle Road, opp Civic Center, Quetta. <br>Phone:&nbsp; 0300-3883054,&nbsp;0309-8105556,&nbsp;081-2827774</h3>
                     
                 </div> --}}
                 {{-- <table style="width:100%" class="text-center">
                     <tr>
                         <td colspan="3" style="text-align:center;"><img width="200px" height="150px" src="{{ asset("assets/images/app_logo.png") }}"/></td>
                         <td colspan="9" style="text-align:center;">
-                            <h1 class="m-query1">ABC Center</h1>
+                            <h1 class="m-query1">Super UPS Center</h1>
                             <h3 style="font-size:12px;" class="m-query2">Shop No 12, insaf Solar Market, Angle Road, opp Civic Center, Quetta.&nbsp; <br>Phone:&nbsp; 0300-3883054,&nbsp;0309-8105556,&nbsp;081-2827774</h3>
                         </td>
                         <td colspan="3" style="text-align:center;"><img width="120px" height="80px" src="{{ asset("assets/images/name.png") }}"/></td>
@@ -228,11 +228,11 @@
                     </div>
                     <div3 id="myDiv">
                         
-                        <span class="dot"><p style="margin-top: 15px;">Khan خان</p></span>
+                        <span class="dot"><p style="margin-top: 15px;">خوشحال خان</p></span>
                         </div3>
                     <div class="text1">
-                        <h1 class="m-query1">ABC Center</h1>
-                        <h3 class="m-query2">ABC<br>Phone:&nbsp; 0300-1234556,&nbsp;0309-12345,&nbsp;081-123445</h3>
+                        <h1 class="m-query1">Super UPS Center</h1>
+                        <h3 class="m-query2">Shop No 12, insaf Solar Market, Angle Road, opp Civic Center, Quetta. <br>Phone:&nbsp; 0300-3883054,&nbsp;0309-8105556,&nbsp;081-2827774</h3>
                         
                     </div>
                 </div>

@@ -88,7 +88,7 @@ class StockController extends Controller
         $ledger_arr = [];
         $created_at = date('Y-m-d H:i:s');
         $date = Carbon::createFromFormat('Y-m-d H:i:s', $created_at);
-        $newDate = $date->addSeconds(10);
+        $newDate = $date->addSeconds(2);
         $bank = $request->payment_type > 0 ? $request->bank : null;
         try {
             DB::beginTransaction();
@@ -125,7 +125,7 @@ class StockController extends Controller
                 $expdata = ["debit" => $ledger, "detail" => $detail, "detail_hidden" => $detail_hidden, "created_at" => $created_at, "bank" => $bank, "payment_type" => $request->payment_type, 'type' => 1];
             } else if ($request['type'] == 2) {
                 $data[] = ["type" => 1, "amount" => $ledger, "details" => $detail, "vendor_id" => $request->vendor_id, "created_at" => $created_at, "bank" => $bank, "payment_type" => $request->payment_type, "full" => 2];
-               
+
                 $data[] = ["type" => 1, "amount" => -$request->paid_amount, "details" => $detail, "vendor_id" => $request->vendor_id, "created_at" => $newDate, "bank" => $bank, "payment_type" => $request->payment_type, "full" => 2];
                 //add expense
                 $expdata = ["debit" => $request->paid_amount, "detail" => $detail, "detail_hidden" => $detail_hidden, "created_at" => $created_at, "bank" => $bank, "payment_type" => $request->payment_type, 'type' => 2];
@@ -133,8 +133,8 @@ class StockController extends Controller
                 $data[] = ["type" => 1, "amount" => $ledger, "details" => $detail, "vendor_id" => $request->vendor_id, "created_at" => $created_at, "bank" => $bank, "payment_type" => $request->payment_type];
             }
             if (count($data) > 0) {
-                
-                Ledger::insert($data); 
+
+                Ledger::insert($data);
             }
             if (count($expdata) > 0) {
                 Expense::insert($expdata);

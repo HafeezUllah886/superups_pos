@@ -4,7 +4,7 @@
         <meta charset="utf-8" />
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0, minimal-ui">
-        <title>ABC Center</title>
+        <title>Super UPS Center</title>
         <meta content="Admin Dashboard" name="description" />
         <meta content="Mannatthemes" name="author" />
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
@@ -83,6 +83,19 @@
                 </li>
                 <li class="nav-item dropdown">
                   <a class="nav-link dropdown-toggle" href="#" id="navbardrop" data-toggle="dropdown">
+                    Sales
+                  </a>
+                  <div class="dropdown-menu">
+                    <a class="dropdown-item" href="{{route('customer.create')}}">Sell</a>
+                    @if($role == 0)
+                    <a class="dropdown-item" href="{{route('customer.index')}}">Sale Detail</a>
+                    <a class="dropdown-item" href="{{route('customer.show',0)}} ">Complete Sale Detail</a>
+                    <a class="dropdown-item" href="{{route('searchinvoice')}}">Return Invoice</a>
+                    @endif
+                  </div>
+                </li>
+                <li class="nav-item dropdown">
+                  <a class="nav-link dropdown-toggle" href="#" id="navbardrop" data-toggle="dropdown">
                     Vendors/Customers
                   </a>
                   <div class="dropdown-menu">
@@ -103,6 +116,17 @@
                     <a class="dropdown-item" href="{{route('availblestock')}}">Availble Stock</a>
                     <a class="dropdown-item" href="{{route('stock.index')}}">Stock Detail</a>
                    @endif
+                  </div>
+                </li>
+                <li class="nav-item dropdown">
+                  <a class="nav-link dropdown-toggle" href="#" id="navbardrop" data-toggle="dropdown">
+                    Quotation
+                  </a>
+                  <div class="dropdown-menu">
+                    <a class="dropdown-item" href="{{route('create_quotation')}}">Generate</a>
+                    @if($role == 0)
+                    <a class="dropdown-item" href="{{route('quotation')}}">Quotation Listing</a>
+                    @endif
                   </div>
                 </li>
                 <li class="nav-item dropdown">

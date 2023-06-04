@@ -73,7 +73,7 @@ h5 {
 	<br>
 	<div class="card-header p-4">
 		<img style="float: left !important;" width="190px" height="150px" src="{{ asset("assets/images/app_logo.png") }}"/>
-		<h1 class="mb-0">ABC Center</h1>
+		<h1 class="mb-0">Super Ups Center</h1>
 		<div class="float-right"> <h3 class="mb-0"><p><b>Shop No 12, insaf Solar Market, Angle Road,opp Civic Center, Quetta.</b></p>
       <p>contact1,contact2</p>
 		</div>

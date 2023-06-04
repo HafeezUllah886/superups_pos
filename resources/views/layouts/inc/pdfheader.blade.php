@@ -194,8 +194,8 @@
                 <img width="120px" height="80px" src="{{ asset("assets/images/name.png") }}"/>
                 </div>
                 <div class="col-lg-7 col-7 text-center">
-                    <h1 class="m-query1">ABC Center</h1>
-                    <h3 class="m-query2">ABC<br>Phone:&nbsp; 0300-1234556,&nbsp;0309-12345,&nbsp;081-123445</h3>
+                    <h1 class="m-query1">Super UPS Center</h1>
+                    <h3 class="m-query2">Shop No 12, insaf Solar Market, Angle Road, opp Civic Center, Quetta. <br>Phone:&nbsp; 0300-3883054,&nbsp;0309-8105556,&nbsp;081-2827774</h3>
                     
                 </div> --}}
                 <table style="margin:-20px;margin-left:5px;text-align:center;" class="text-center">
@@ -203,8 +203,8 @@
                         <td colspan="3" style="text-align:center;"><img width="200px" height="150px" src="{{ asset("assets/images/app_logo.png") }}"/></td>
                         <td colspan="3" style="text-align:center;"><img width="120px" height="80px" src="{{ asset("assets/images/name.png") }}"/></td>
                         <td colspan="6" style="text-align:center;">
-                            <h1 class="m-query1">ABC Center</h1>
-                            <h3 style="font-size:15px;" class="m-query2">ABC Center, Quetta.&nbsp; <br>Phone:&nbsp; 0300-,&nbsp;0,&nbsp;081-2</h3>
+                            <h1 class="m-query1">Super UPS Center</h1>
+                            <h3 style="font-size:15px;" class="m-query2">Shop No 12, insaf Solar Market, Angle Road, opp Civic Center, Quetta.&nbsp; <br>Phone:&nbsp; 0300-3883054,&nbsp;0309-8105556,&nbsp;081-2827774</h3>
                         </td>
                         <tr>
                 </table>
@@ -215,11 +215,11 @@
                     </div>
                     <div3 id="myDiv">
                         
-                        <span class="dot"><p style="margin-top: 15px;">Khan خان</p></span>
+                        <span class="dot"><p style="margin-top: 15px;">خوشحال خان</p></span>
                         </div3>
                     <div class="text1">
-                        <h1 class="m-query1">ABC Center</h1>
-                        <h3 class="m-query2">ABC<br>Phone:&nbsp; 0300-1234556,&nbsp;0309-12345,&nbsp;081-123445</h3>
+                        <h1 class="m-query1">Super UPS Center</h1>
+                        <h3 class="m-query2">Shop No 12, insaf Solar Market, Angle Road, opp Civic Center, Quetta. <br>Phone:&nbsp; 0300-3883054,&nbsp;0309-8105556,&nbsp;081-2827774</h3>
                         
                     </div>
                 </div>

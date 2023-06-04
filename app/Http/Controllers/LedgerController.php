@@ -24,7 +24,7 @@ class LedgerController extends Controller
     {
         if ($request->has('pdf')) {
             $ledgers = Ledger::with(['invoice', 'bank', 'vendor'])->orderby('ledgers.created_at', 'asc');
-
+          
             $vendor_name = "All Ledger";
             if ($id > 0) {
                 $ledgers = $ledgers->where('vendor_id', '=', $id);
@@ -97,12 +97,12 @@ class LedgerController extends Controller
                 $check = true;
             }
             $ledgers = $ledgers->orderby('ledgers.created_at', 'asc');
-
+          
             // if ($check == false) {
             //     $ledgers = $ledgers->limit(12);
             // }
             $ledgers = $ledgers->get();
-
+          
             // $ledgers = $ledgers->orderby('ledgers.created_at','desc')->get();
             //dd($ledgers);
             $TOTAL_AMOUNT = 0;
@@ -133,7 +133,7 @@ class LedgerController extends Controller
             /* for ($i = count($data) - 1; $i >= 0; $i--) {
                 $data_arr_new[] = $data[$i];
             } */
-
+         	
             //dd(array_column($data,'total_amount'));
             //dd(count($data_arr[1]["ledger_detail"]));
             $total_amount = Ledger::where('vendor_id', '=', $id)->where('full', 0)->sum('amount');
@@ -155,7 +155,7 @@ class LedgerController extends Controller
 
         return view('vendor.view_ledger', compact('index_customer_flag', 'data', 'dataA', 'id', 'from', 'to', 'total_amount', 'vendorObj', 'vendor_name', 'vendors'));
     }
-
+  
   	public function another_index_customer(Request $request,$id, $totalonly = false,$startDate){
         $check = false;
 
@@ -186,18 +186,18 @@ class LedgerController extends Controller
             	});
             }
         }
-
-
+		
+        
          $ledgers = $ledgers->whereRaw('DATE(ledgers.created_at)<="' . $startDate . '"');
          $check = true;
-
+         
         $ledgers = $ledgers->orderby('ledgers.created_at', 'ASC');
         // if ($check == false) {
         //     $ledgers = $ledgers->limit(12);
         // }
         $ledgers = $ledgers->get();
         $TOTAL_AMOUNT = 0;
-
+        
       	foreach ($ledgers as $ledger) {
             $ledger_detail = LedgerDetail::where('created_at', $ledger->created_at)->get();
             $AMOUNT = $ledger->amount;
@@ -267,7 +267,8 @@ class LedgerController extends Controller
                 'color' => $color
             ];
         }
-
+      
+      
         if ($totalonly){
           return $TOTAL_AMOUNT;
         }
@@ -296,12 +297,14 @@ class LedgerController extends Controller
 
         return view('vendor.view_ledger', compact('index_customer_flag', 'data', 'dataA', 'id', 'from', 'to', 'total_amount', 'vendorObj', 'vendor_name', 'vendors'));
     }
-
+  
+  
     public function index_customer(Request $request, $id, $totalonly = false, $dataOnly = false)
     {
         $from = $request->has('from') && $request->from != "" ? $request->from : "";
         $to = $request->has('to') && $request->to != "" ? $request->to : "";
         $check = false;
+
         $data = [];
         $vendor_name = null;
         $vendorObj = null;
@@ -309,9 +312,10 @@ class LedgerController extends Controller
             $vendorObj = Vendor::find($request->vendor_id);
             $vendor_name = $vendorObj->name;
         } elseif ($id > 0) {
+
             $vendorObj = Vendor::find($id);
             if ($vendorObj) {
-                $vendor_name = $vendorObj->name; // The Vendor Name
+                $vendor_name = $vendorObj->name;
             }
         }
         $ledgers = Ledger::with(['invoice.customer', 'bank', 'vendor']);
@@ -328,22 +332,25 @@ class LedgerController extends Controller
             	});
             }
         }
+		
          // commenting date filter, because need to calculate total balance before this date
          if ($request->has('from') && $request->from != "" && $request->has('to') && $request->to != "") {
              $ledgers = $ledgers->whereRaw('DATE(ledgers.created_at)>="' . $request->from . '"')->whereRaw('DATE(ledgers.created_at)<="' . $request->to . '"');
              $check = true;
          } else if ($request->has('from') && $request->from != "") {
+
+
              $from = $request->has('from') && $request->from != "" ? $request->from : date('Y-m-d');
              $ledgers = $ledgers->whereRaw('DATE(ledgers.created_at)="' . $from . '"');
              $check = true;
          }
-        $ledgers = $ledgers->orderby('ledgers.id', 'ASC');
+        $ledgers = $ledgers->orderby('ledgers.created_at', 'ASC');
         // if ($check == false) {
         //     $ledgers = $ledgers->limit(12);
         // }
         $ledgers = $ledgers->get();
         $TOTAL_AMOUNT = 0;
-
+        
       	foreach ($ledgers as $ledger) {
             $ledger_detail = LedgerDetail::where('created_at', $ledger->created_at)->get();
             $AMOUNT = $ledger->amount;
@@ -362,6 +369,7 @@ class LedgerController extends Controller
                             if ($AMOUNT > 0) {
                                 $rem -= $AMOUNT;
                             }
+
                             $TOTAL_AMOUNT += $AMOUNT;
                         } else {
                             $TOTAL_AMOUNT += $AMOUNT;
@@ -412,8 +420,8 @@ class LedgerController extends Controller
                 'color' => $color
             ];
         }
-
-
+      
+      
         if ($totalonly){
           return $TOTAL_AMOUNT;
         }
@@ -483,7 +491,7 @@ class LedgerController extends Controller
         $ledger->payment_type = $request['payment_type'];
         $ledger->bank = $request['bank'];
         $ledger->status = 1;
-        $ledger->full = 4; // vendor add cash
+        $ledger->full = 4; // vendor add cash 
         $ledger->save();
 
         $detail_hidden = null;

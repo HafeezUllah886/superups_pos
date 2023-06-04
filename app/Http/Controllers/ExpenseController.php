@@ -37,8 +37,8 @@ class ExpenseController extends Controller
             $exp_total = $exp_total->whereRaw('DATE(expenses.created_at)>="' . $request->from . '"')->whereRaw('DATE(expenses.created_at)<="' . $request->to . '"');
         } else {
 
-            $expenses = $expenses->whereRaw('DATE(expenses.created_at)="' . $from . '"');
-            $exp_total = $exp_total->whereRaw('DATE(expenses.created_at)="' . $from . '"');
+          /*   $expenses = $expenses->whereRaw('DATE(expenses.created_at)="' . $from . '"');
+            $exp_total = $exp_total->whereRaw('DATE(expenses.created_at)="' . $from . '"'); */
         }
 
         $expenses = $expenses->get();

@@ -204,7 +204,7 @@
                                             }
                                             elseif($item->full == 2){
                                                 $color = 'blue';
-                                                
+
                                             }
                                             elseif($item->full == 0){
                                                 $color = 'green';
@@ -282,7 +282,7 @@
                                     <th>Customer/Vendor</th>
                                     <th>Details</th>
                                     <th>Payment Type</th>
-    
+
                                     {{-- <th>Product</th>
                                     <th>Qty</th>
                                     <th>Price</th>
@@ -290,7 +290,7 @@
                                     <th>Credit</th>
                                     <th>Debit</th>
                                     <th>Total</th>
-    
+
                                 </tr>
                             </thead>
                             <tbody>
@@ -299,11 +299,11 @@
                                 $data = $expenses;
                                 $temp = null;
                                 @endphp
-                                @for($i=0; $i<count($data);$i++) 
+                                @for($i=0; $i<count($data);$i++)
                                 @php $payment_type="Cash" ;
                                 $color=$data[$i]['color'];
                                     if($data[$i]['payment_type']==1){ $payment_type="Cheque" ; }
-                                    elseif($data[$i]['payment_type']==2){ $payment_type="Bank Deposit" ; } 
+                                    elseif($data[$i]['payment_type']==2){ $payment_type="Bank Deposit" ; }
                                     if($i!=0){
                                     $total_expense=$data[$i-1]['detail_hidden']=='TRANSFER' ? $total_expense :
                                     ($data[$i-1]['credit']> 0 ? $total_expense - $data[$i-1]['credit'] :
@@ -336,7 +336,7 @@
                                                 <td></td>
                                                 <td></td>
                                             @endif
-    
+
                                             {{-- <td>{{ $ledger_detail[$a]['lproduct'] }}</td>
                                             <td>{{ $ledger_detail[$a]['lqty'] }}</td>
                                             <td>{{ $ledger_detail[$a]['lprice'] }}</td>
@@ -348,17 +348,17 @@
                                             </td>
                                             <td >{{ $data[$i]['debit'] > 0 ? $data[$i]['debit'] : "0" }}
                                             </td>
-    
+
                                             <td >{{ $data[$i]['total_expense'] }}</td>
                                             @else
                                             <td></td>
                                             <td></td>
                                             <td></td>
                                             @endif
-    
+
                                         </tr>
                                         @endfor
-    
+
                                         @else
                                         <tr  style="color:{{ $color }}">
                                             <td>{{ $data[$i]['created_date'] }}</td>
