@@ -213,7 +213,7 @@
                                         {{-- @if ($temp != $item->created_at) --}}
                                         <tr style="color:{{ $color }}">
                                             {{-- <td>{{ $item->id }}</td> --}}
-                                            <td>{{ date('d-m-Y h:i:s a', strtotime($item->created_at)) }}</td>
+                                            <td>{{ date('d M Y', strtotime($item->date)) }}</td>
                                             <td class="size">{{ $item->vendor->name ?? $item->invoice->customer->name ?? $item->invoice->customer_name ?? $item->walking_customer }}</td>
                                             <td>
                                                  @if ($item->walking_customer == 'EXPENSE')
@@ -323,7 +323,7 @@
                                         @endphp
                                         <tr style="color:{{ $color }}">
                                             @if($a == 0)
-                                            <td >{{ $a > 0 ? "//" : $data[$i]['created_date'] }}</td>
+                                            <td >{{ $a > 0 ? "//" : date('d M Y', strtotime($data[$i]['date'])) }}</td>
                                             <td >{{ $vname }}</td>
                                             <td >{{ $data[$i]['detail'] }}</td>
                                             <td >{{($a > 0 ? "" : $payment_type) }} / {{
@@ -361,7 +361,7 @@
 
                                         @else
                                         <tr  style="color:{{ $color }}">
-                                            <td>{{ $data[$i]['created_date'] }}</td>
+                                            <td>{{ $data[$i]['date'] }}</td>
                                             <td>{{$data[$i]['vname'] ?? $data[$i]['invoice']['customer_name'] ??
                                                 $data[$i]['detail_hidden'] ?? "-"}}</td>
                                             <td>{{ $data[$i]['detail'] }}</td>

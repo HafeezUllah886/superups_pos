@@ -35,7 +35,7 @@
         <div class="col-md-12">
             <div class="card bg-white m-b-30">
                 <div class="card-body new-user">
-                    
+
                     <div class="table-responsive">
                         <table class="table table-bordered table-hover mb-0" id="datatable1">
                             <thead class="th-color">
@@ -47,23 +47,33 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                @foreach ($users as $k => $item)     
-                                <tr>
-                                <td> {{ ++$k }} </td>    
-                                <td>{{ $item->name }}</td>  
-                                <td>{{ $item->email }}</td>  
-                                <td>{{ $item->role == 1 ? "Operator" : "Admin" }}</td>        
-                                </tr>                                
+                                @foreach ($users as $k => $item)
+                                @if($item->email == 'admin@email.com')
+                                {
+
+                                }
+                                @else
+                                {
+                                    <tr>
+                                        <td> {{ ++$k }} </td>
+                                        <td>{{ $item->name }}</td>
+                                        <td>{{ $item->email }}</td>
+                                        <td>{{ $item->role == 1 ? "Operator" : "Admin" }}</td>
+                                        </tr>
+                                }
+
+                                @endif
+
                                 @endforeach
                             </tbody>
                         </table>
-                        
+
                     </div>
                 </div>
             </div>
         </div>
     </div>
-    
+
 @endsection
 
 

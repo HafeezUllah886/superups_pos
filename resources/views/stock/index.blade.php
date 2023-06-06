@@ -87,7 +87,7 @@
                                 <td>{{ $item->qty_received }}</td>
                                 <td>{{ $item->qty }}</td>
                                 <td>{{ $item->total }}</td>
-                                <td>{{ $item->date }}</td>
+                                <td>{{ date('d M Y', strtotime($item->date)) }}</td>
 
                                 <!--<td>
                                 <a href="{{ route('stock.edit',$item) }}">

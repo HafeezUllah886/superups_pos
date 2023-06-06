@@ -7,17 +7,16 @@ $date=date("Y-m-d");
 @endphp
 <div class="card">
     <div class="card-body">
-    
+
         <form id="actual-form" method="post" action="{{ route('stock.store') }}">
             @csrf
             <div class="row mt-1 mb-4">
-                <div class="col-md-4">
-                    {{-- <button type="button" id="add_row_but" class="btn btn-primary" onclick="del_row()">-</button> --}}
+                <div class="col-md-2">
+                    <button type="button" id="add_row_but" class="btn btn-primary" onclick="del_row()">-</button>
                 </div>
-                <div class="col-md-1 mt-2">
-                <label for="vendor_id">Vendor/Customer</label>
-                </div>
-                <div class="col-md-3">  
+
+                <div class="col-md-3">
+                    <label for="vendor_id">Vendor/Customer</label>
                     <select required name="vendor_id" class="form-control select2">
                         <option value="">Select</option>
                         @foreach ($vendors as $item)
@@ -32,8 +31,17 @@ $date=date("Y-m-d");
                     </span>
                     @enderror
                 </div>
-                <div class="col-md-4 text-right">
-                    {{-- <button type="button" id="del_row_but" class="btn btn-primary" onclick="add_row()">+</button> --}}
+                <div class="col-md-4">
+                    <label for="date">Date</label>
+                    <input required name="date" type="date" value="{{ $date }}" class="form-control">
+                    @error('date')
+                    <span class="text-danger">
+                        {{ $message }}
+                    </span>
+                    @enderror
+                </div>
+                <div class="col-md-2 text-right">
+                    <button type="button" id="del_row_but" class="btn btn-primary" onclick="add_row()">+</button>
                 </div>
             </div>
             <div id='form'>
@@ -54,16 +62,8 @@ $date=date("Y-m-d");
                     </span>
                     @enderror
                 </div>
-                
-                <div class="col-md-2">
-                    <label for="date">Date</label>
-                    <input required name="date[]" type="date" value="{{ $date }}" class="form-control">
-                    @error('date')
-                    <span class="text-danger">
-                        {{ $message }}
-                    </span>
-                    @enderror
-                </div>
+
+
                 <div class="col-md-2">
                     <label for="price">Purchase Price</label>
                     <input required name="price[]" type="number" id="1price" onkeyup="calculate_total('1')" class="form-control" >
@@ -100,13 +100,13 @@ $date=date("Y-m-d");
                     </span>
                     @enderror
                 </div>
-                
+
             </div>
             </div>
             <div class="mt-3">
                 <button type="submit" class="btn btn-primary">Save</button>
             </div>
-       
+
             <div class="row mb-2 mt-4">
                 <div class="col-md-1 mt-2">
                 <label>Total Amount :<label>
@@ -128,7 +128,7 @@ $date=date("Y-m-d");
                             <option value="0">Unpaid</option>
                         </select>
                 </div>
-                
+
                 <div style="display: none;" class="col-md-1 mt-2 hidden">
                     <label>Amount</label>
                 </div>
@@ -139,7 +139,7 @@ $date=date("Y-m-d");
                     <label>Payment Type : <label>
                     </div>
                 <div class="col-md-1 mt-2">
-                    
+
                         <select onchange="checkpaymenttype(this.value)" id="payment_type" class="form-control" name="payment_type" required>
                             <option value="0">Cash</option>
                             <option value="1">Cheque</option>
@@ -156,7 +156,7 @@ $date=date("Y-m-d");
                             <option value="{{$item->id}}">{{$item->bank_name}}</option>
                         @endforeach
                     </select>
-                 
+
                 </div>
                 <div class="col-md-4">
                     <label>Payment Detail</label>
@@ -195,7 +195,7 @@ function checktype(){
     }
   }
 
-  
+
 
  function add_row() {
     line_no++;
@@ -213,15 +213,6 @@ function checktype(){
                        '@endforeach'+
                     '</select>'+
                    '@error("product_id")'+
-                    '<span class="text-danger">'+
-                        '{{ $message }}'+
-                    '</span>'+
-                    '@enderror'+
-                '</div>'+
-                '<div class="col-md-2">'+
-                    '<label for="date">Date</label>'+
-                    '<input required name="date[]" type="date" value="{{ $date }}" class="form-control">'+
-                    '@error("date")'+
                     '<span class="text-danger">'+
                         '{{ $message }}'+
                     '</span>'+
@@ -266,10 +257,10 @@ function checktype(){
                 '<div class="col-md-1">' +
                     '<br><button onclick="removerow('+line_no+')" class="btn btn-danger btn-sm mt-2">-</button>'+
                 '</div>' +
-            '</div>' 
-            
+            '</div>'
+
         ).show();
-     
+
  }
 
  function removerow(id)
@@ -291,7 +282,7 @@ cal_amount();
     var price=$('#'+id+'price').val();
      if(qty!='' && price!=''){
         $('#'+id+'total').val(price*qty);
-        cal_amount(); 
+        cal_amount();
     }
      else{
         $('#'+id+'total').val('');
@@ -305,17 +296,17 @@ cal_amount();
     var amount=document.getElementsByName("total[]");
     var total_amount=0;
     var total_qty=0;
-  
+
     for (var i = 0; i < amount.length; i++) {
         console.log(amount[i].value);;
         if (amount[i].value=='') {
-            
+
         }
         else{
             total_amount+=parseInt(amount[i].value);
         }
         if (qty[i].value=='') {
-            
+
         }
         else{
         total_qty+=parseInt(qty[i].value);
@@ -333,7 +324,7 @@ $('#actual-form').on('submit',function(e){
 
     if ($('#type').val() == '2' && $('#amount-field').val() == '') {
         alert('Please enter amount')
-        return; 
+        return;
     }
 
     $(this).submit()

@@ -89,6 +89,7 @@ class CustomerController extends Controller
                 'price_org' => 'required',
                 'qty' => 'required',
                 'total' => 'required',
+                'date' => 'required',
                 'bank' => 'requiredIf:payment_type,==,2',
             ]
         );
@@ -103,7 +104,7 @@ class CustomerController extends Controller
                 throw new \Exception("Please remove duplicate products");
             }
             $created_at = $request->filled('date') ? Carbon::parse($request->date)->format('Y-m-d') . Carbon::now()->format(' H:i:s') :  Carbon::now()->format('Y-m-d') . Carbon::now()->format(' H:i:s');
-           	
+
           	$overaall_amount = 0;
             $overaall_qty = 0;
             $BANK = $request->has("bank") && $request->bank != "" ? $request->bank : null;
@@ -173,7 +174,7 @@ class CustomerController extends Controller
             //add ledger
             $walking_customer = $request->customer_name != 0 ? null : $request->c_name;
             $paidamount = $request->has('paid_amount') && $request->paid_amount != "" ? $request->paid_amount : 0;
-            $ldgr_id = $this->addCusomerLedger($request->customer_name, ($overaall_amount - $discount), $request->type, $invoice->id, $detail, $paidamount, $BANK, $request->payment_type, $created_at, $walking_customer . 'test');
+            $ldgr_id = $this->addCusomerLedger($request->customer_name, ($overaall_amount - $discount), $request->type,$invoice->id, $detail, $paidamount, $BANK, $request->payment_type, $created_at, $walking_customer . 'test',  $request->date);
             if ($ldgr_id) {
                 // Arr::add($ledger_arr, 'ledger_id' , $ldgr_id);
                 $ldgr_id_arr = array('ledger_id' => $ldgr_id);
@@ -186,7 +187,7 @@ class CustomerController extends Controller
             if ($request->type != 0) {
                 $amount = $request->type == 2 ? $paidamount : ($overaall_amount - $discount);
                 if ($amount > 0) {
-                    $this->insertExpensedata($amount, $detail, $BANK, $request->payment_type, $created_at, $invoice->id, $request->detail_hidden, $request->type);
+                    $this->insertExpensedata($amount, $detail, $BANK, $request->payment_type, $created_at, $invoice->id, $request->detail_hidden, $request->type, $request->date);
                 }
             }
             if (count($ledger_arr) > 0) {
@@ -212,9 +213,9 @@ class CustomerController extends Controller
         }
     }
     //insert in expense table
-    public function insertExpensedata($amount, $detail, $bank, $payment_type, $created_at, $invoice_id, $detail_hidden, $type = 0)
+    public function insertExpensedata($amount, $detail, $bank, $payment_type, $created_at, $invoice_id, $detail_hidden, $type = 0, $date)
     {
-        $data = ["credit" => $amount, "detail" => $detail, "detail_hidden" => $detail_hidden, "bank" => $bank, "payment_type" => $payment_type, "invoice_id" => $invoice_id, "created_at" => $created_at, 'type' => $type];
+        $data = ["credit" => $amount, "date" => $date, "detail" => $detail, "detail_hidden" => $detail_hidden, "bank" => $bank, "payment_type" => $payment_type, "invoice_id" => $invoice_id, "created_at" => $created_at, 'type' => $type];
         Expense::insert($data);
     }
     public function deductstock($product_id, $qty)
@@ -257,20 +258,20 @@ class CustomerController extends Controller
         $product = Product::select('name')->where('id', $product_id)->get();
         return $product[0]->name;
     }
-    public function addCusomerLedger($id, $amount, $type, $invoice_id, $detail, $paidamount, $bank, $payment_type, $created_at, $walking_customer)
+    public function addCusomerLedger($id, $amount, $type, $invoice_id, $detail, $paidamount, $bank, $payment_type, $created_at, $walking_customer, $date)
     {
         $data = [];
 
         $type = $type == 2 && $paidamount < 1 ? 0 : $type;
         //dd($type);
         if ($type == 2) {
-           $data[] = ["walking_customer" => $walking_customer, "amount" => $paidamount, "details" => $detail, "vendor_id" => $id, "bank" => $bank, "payment_type" => $payment_type, "created_at" => $created_at, "invoice_id" => $invoice_id, "full" => 2];
+           $data[] = ["walking_customer" => $walking_customer, "amount" => $paidamount, "date"=>$date, "details" => $detail, "vendor_id" => $id, "bank" => $bank, "payment_type" => $payment_type, "created_at" => $created_at, "invoice_id" => $invoice_id, "full" => 2];
             //$amount = $type == 2 ? $paidamount : $amount;
-            $data[] = ["walking_customer" => $walking_customer, "amount" => -$amount, "details" => $detail, "vendor_id" => $id, "bank" => $bank, "payment_type" => $payment_type, "created_at" => $created_at, "invoice_id" => $invoice_id, "full" => 2];
+            $data[] = ["walking_customer" => $walking_customer, "amount" => -$amount, "details" => $detail, "date"=>$date,"vendor_id" => $id, "bank" => $bank, "payment_type" => $payment_type, "created_at" => $created_at, "invoice_id" => $invoice_id, "full" => 2];
         } else if ($type == 1) {
-            $data[] = ["walking_customer" => $walking_customer, "amount" => $amount, "details" => $detail, "vendor_id" => $id, "bank" => $bank, "payment_type" => $payment_type, "created_at" => $created_at, "invoice_id" => $invoice_id, "full" => 1];
+            $data[] = ["walking_customer" => $walking_customer, "amount" => $amount, "details" => $detail, "date"=>$date, "vendor_id" => $id, "bank" => $bank, "payment_type" => $payment_type, "created_at" => $created_at, "invoice_id" => $invoice_id, "full" => 1];
         } else {
-            $data[] = ["walking_customer" => $walking_customer, "amount" => -$amount, "details" => $detail, "vendor_id" => $id, "bank" => $bank, "payment_type" => $payment_type, "created_at" => $created_at, "invoice_id" => $invoice_id];
+            $data[] = ["walking_customer" => $walking_customer, "amount" => -$amount, "details" => $detail, "date"=>$date, "vendor_id" => $id, "bank" => $bank, "payment_type" => $payment_type, "created_at" => $created_at, "invoice_id" => $invoice_id];
         }
         if (count($data) > 0) {
             //dd($data);
@@ -468,7 +469,7 @@ class CustomerController extends Controller
                     $detail_hidden =  'Expense Bank';
                 }
                 //
-                Expense::insert(['type' => 5, "detail_hidden" => $detail_hidden, "invoice_id" => $invoice->id, "debit" => ($total_amount), "detail" => $detail, "bank" => $request->bank, "payment_type" => $request->payment_type, "created_at" => $created_at]);
+                Expense::insert(['type' => 5, "detail_hidden" => $detail_hidden, "invoice_id" => $invoice->id, "debit" => ($total_amount), "detail" => $detail, "bank" => $request->bank, "date" => $request->date, "payment_type" => $request->payment_type, "created_at" => $created_at]);
                 // }
                 if (count($ledger_arr) > 0) {
                     $lid = Ledger::latest()->limit(1)->first()->id;

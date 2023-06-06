@@ -19,6 +19,7 @@ class CreateLedgersTable extends Migration
             $table->bigInteger('amount');
             $table->string('details');
             $table->timestamps();
+            $table->date('date');
             $table->Integer('stock_id')->nullable();
             $table->integer('type')->nullable()->comment('1=stock add');
         });

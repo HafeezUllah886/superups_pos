@@ -22,6 +22,7 @@ class CreateLedgerdetailsTable extends Migration
             $table->integer('ltotal')->nullable();
             $table->tinyInteger('type')->comment('0 => ledger, 1 => Expense');
             $table->timestamps();
+            $table->date('date');
             $table->foreign('ledger_id')->references('id')->on('ledgers');
         });
     }

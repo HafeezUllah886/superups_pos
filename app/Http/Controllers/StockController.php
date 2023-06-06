@@ -104,7 +104,7 @@ class StockController extends Controller
                     "sale_price" => $request->sprice[$i],
                     "qty" => $request->qty[$i],
                     "qty_received" => $request->qty[$i],
-                    "date" => $request->date[$i],
+                    "date" => $request->date,
                     "total" => $request->qty[$i] * $request->price[$i],
                     "type" => $request->type,
                     "created_at" => $created_at
@@ -120,20 +120,19 @@ class StockController extends Controller
             $data = [];
             $expdata = [];
             if ($request['type'] == 1) {
-                $data[] = ["type" => 1, "amount" => $ledger, "details" => $detail, "vendor_id" => $request->vendor_id, "created_at" => $created_at, "bank" => $bank, "payment_type" => $request->payment_type, "full" => 1];
+                $data[] = ["type" => 1, "amount" => $ledger, "date" => $request->date,"details" => $detail, "vendor_id" => $request->vendor_id, "created_at" => $created_at, "bank" => $bank, "payment_type" => $request->payment_type, "full" => 1];
                 // $data[] = ["type"=>1, "amount" => -$ledger,"details" => $detail,"vendor_id" => $request->vendor_id,"created_at" => $created_at,"bank" => $bank, "payment_type" => $request->payment_type];
-                $expdata = ["debit" => $ledger, "detail" => $detail, "detail_hidden" => $detail_hidden, "created_at" => $created_at, "bank" => $bank, "payment_type" => $request->payment_type, 'type' => 1];
+                $expdata = ["debit" => $ledger, "date" => $request->date,"detail" => $detail, "detail_hidden" => $detail_hidden, "created_at" => $created_at, "bank" => $bank, "payment_type" => $request->payment_type, 'type' => 1];
             } else if ($request['type'] == 2) {
-                $data[] = ["type" => 1, "amount" => $ledger, "details" => $detail, "vendor_id" => $request->vendor_id, "created_at" => $created_at, "bank" => $bank, "payment_type" => $request->payment_type, "full" => 2];
+                $data[] = ["type" => 1, "amount" => $ledger,"date" => $request->date, "details" => $detail, "vendor_id" => $request->vendor_id, "created_at" => $created_at, "bank" => $bank, "payment_type" => $request->payment_type, "full" => 2];
 
-                $data[] = ["type" => 1, "amount" => -$request->paid_amount, "details" => $detail, "vendor_id" => $request->vendor_id, "created_at" => $newDate, "bank" => $bank, "payment_type" => $request->payment_type, "full" => 2];
+                $data[] = ["type" => 1, "amount" => -$request->paid_amount, "date" => $request->date, "details" => $detail, "vendor_id" => $request->vendor_id, "created_at" => $newDate, "bank" => $bank, "payment_type" => $request->payment_type, "full" => 2];
                 //add expense
-                $expdata = ["debit" => $request->paid_amount, "detail" => $detail, "detail_hidden" => $detail_hidden, "created_at" => $created_at, "bank" => $bank, "payment_type" => $request->payment_type, 'type' => 2];
+                $expdata = ["debit" => $request->paid_amount, "detail" => $detail, "date" => $request->date, "detail_hidden" => $detail_hidden, "created_at" => $created_at, "bank" => $bank, "payment_type" => $request->payment_type, 'type' => 2];
             } else {
-                $data[] = ["type" => 1, "amount" => $ledger, "details" => $detail, "vendor_id" => $request->vendor_id, "created_at" => $created_at, "bank" => $bank, "payment_type" => $request->payment_type];
+                $data[] = ["type" => 1, "amount" => $ledger, "details" => $detail,"date" => $request->date, "vendor_id" => $request->vendor_id, "created_at" => $created_at, "bank" => $bank, "payment_type" => $request->payment_type];
             }
             if (count($data) > 0) {
-
                 Ledger::insert($data);
             }
             if (count($expdata) > 0) {

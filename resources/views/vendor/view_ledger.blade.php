@@ -144,7 +144,7 @@ $due_charges=0;
                                echo '<tr style="color:'. $color.'">
                                 <td>'.($data[$i]['ledger_id']).'</td>';
                                 if($a == 0){
-                                    echo '<td rowspa ="'.$row.'">'.$data[$i]["created_date"].'</td>
+                                    echo '<td rowspa ="'.$row.'">'.date('d M Y', strtotime($data[$i]['date'])).'</td>
                                     <td rowspa ="'.$row.'">'.$data[$i]["vname"].'</td>';
                                     echo '<td>'.$data[$i]["detail"].'</td>';
 
@@ -195,7 +195,7 @@ $due_charges=0;
                         }else{
                             echo '<tr style="color:'. $color.'">
                                 <td>'.($data[$i]['ledger_id']).'</td>
-                                    <td>'.$data[$i]["created_date"].'</td>
+                                    <td>'.date('d M Y', strtotime($data[$i]['date'])).'</td>
                                     <td>'.$data[$i]["vname"].'</td>
                                     <td>'.$data[$i]["detail"].'</td>
                                     ';

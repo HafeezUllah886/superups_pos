@@ -269,6 +269,7 @@ class ExpenseController extends Controller
                 "detail_hidden" => $expense->detail_hidden,
                 "credit" => $expense->credit,
                 "debit" => $expense->debit,
+                "date" => $expense->date,
                 "ledger_detail" => $ledger_detail,
                 "vname" => ($expense->vname ?? $expense->invoice->customer->name ?? $expense->invoice->customer_name ?? ($expense->detail_hidden == 'Expense Bank' || $expense->detail_hidden == 'Expense' ? 'EXPENSE' : $expense->detail_hidden
                 )),
